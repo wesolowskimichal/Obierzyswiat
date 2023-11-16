@@ -1,0 +1,185 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="google_maps_api_key">AIzaSyCg_6_B6gb9M1kL1eS7mVHicvobjPag1Q0</string>
+    <string name="style_json">
+[
+  {
+    \"featureType\": \"administrative\",
+    \"elementType\": \"labels.text.stroke\",
+    \"stylers\": [
+      {
+        \"visibility\": \"off\"
+      }
+    ]
+  },
+  {
+    \"featureType\": \"landscape.man_made\",
+    \"elementType\": \"geometry.fill\",
+    \"stylers\": [
+      {
+        \"color\": \"#6ccb43\"
+      }
+    ]
+  },
+  {
+    \"featureType\": \"landscape.natural\",
+    \"elementType\": \"geometry.fill\",
+    \"stylers\": [
+      {
+        \"color\": \"#67b446\"
+      }
+    ]
+  },
+  {
+    \"featureType\": \"poi\",
+    \"stylers\": [
+      {
+        \"visibility\": \"off\"
+      },
+      {
+        \"weight\": 1
+      }
+    ]
+  },
+  {
+    \"featureType\": \"poi.attraction\",
+    \"stylers\": [
+      {
+        \"visibility\": \"off\"
+      }
+    ]
+  },
+  {
+    \"featureType\": \"poi.business\",
+    \"elementType\": \"geometry\",
+    \"stylers\": [
+      {
+        \"visibility\": \"off\"
+      }
+    ]
+  },
+  {
+    \"featureType\": \"poi.government\",
+    \"stylers\": [
+      {
+        \"visibility\": \"off\"
+      }
+    ]
+  },
+  {
+    \"featureType\": \"poi.medical\",
+    \"stylers\": [
+      {
+        \"visibility\": \"off\"
+      }
+    ]
+  },
+  {
+    \"featureType\": \"poi.park\",
+    \"stylers\": [
+      {
+        \"visibility\": \"on\"
+      }
+    ]
+  },
+  {
+    \"featureType\": \"poi.park\",
+    \"elementType\": \"geometry.fill\",
+    \"stylers\": [
+      {
+        \"color\": \"#62aa41\"
+      }
+    ]
+  },
+  {
+    \"featureType\": \"poi.park\",
+    \"elementType\": \"labels.icon\",
+    \"stylers\": [
+      {
+        \"color\": \"#80b36b\"
+      }
+    ]
+  },
+  {
+    \"featureType\": \"poi.park\",
+    \"elementType\": \"labels.text.fill\",
+    \"stylers\": [
+      {
+        \"color\": \"#ffffff\"
+      }
+    ]
+  },
+  {
+    \"featureType\": \"poi.park\",
+    \"elementType\": \"labels.text.stroke\",
+    \"stylers\": [
+      {
+        \"color\": \"#000000\"
+      },
+      {
+        \"weight\": 1.5
+      }
+    ]
+  },
+  {
+    \"featureType\": \"poi.place_of_worship\",
+    \"elementType\": \"geometry\",
+    \"stylers\": [
+      {
+        \"visibility\": \"off\"
+      }
+    ]
+  },
+  {
+    \"featureType\": \"road\",
+    \"elementType\": \"geometry.fill\",
+    \"stylers\": [
+      {
+        \"color\": \"#c3c454\"
+      },
+      {
+        \"visibility\": \"on\"
+      }
+    ]
+  },
+  {
+    \"featureType\": \"road\",
+    \"elementType\": \"labels.text.fill\",
+    \"stylers\": [
+      {
+        \"color\": \"#ffffff\"
+      }
+    ]
+  },
+  {
+    \"featureType\": \"road\",
+    \"elementType\": \"labels.text.stroke\",
+    \"stylers\": [
+      {
+        \"color\": \"#2b2b2b\"
+      }
+    ]
+  },
+  {
+    \"featureType\": \"transit\",
+    \"stylers\": [
+      {
+        \"visibility\": \"off\"
+      }
+    ]
+  },
+  {
+    \"featureType\": \"water\",
+    \"elementType\": \"geometry.fill\",
+    \"stylers\": [
+      {
+        \"color\": \"#3fbad9\"
+      },
+      {
+        \"visibility\": \"on\"
+      }
+    ]
+  }
+]
+    </string>
+</resources>

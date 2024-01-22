@@ -1,50 +1,51 @@
 package com.example.obierzyswiat
 
 import android.content.pm.PackageManager
-import android.graphics.PixelFormat
 import android.os.Bundle
 import android.util.Log
-import android.view.SurfaceView
-import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MapStyleOptions
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
+import com.example.obierzyswiat.controllers.GPSController
+import com.example.obierzyswiat.database.MonstersDatabase
+import com.example.obierzyswiat.repository.MonstersRepository
+import com.example.obierzyswiat.viewmodels.FightViewModel
+import com.example.obierzyswiat.viewmodels.GameViewModel
+import com.example.obierzyswiat.viewmodels.GameViewModelProvider
+import com.example.obierzyswiat.viewmodels.MonstersViewModel
+import com.example.obierzyswiat.viewmodels.MonstersViewModelProvider
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
-class MainActivity : AppCompatActivity(), OnMapReadyCallback {
-    private lateinit var gameSurfaceView: Game
+class MainActivity : AppCompatActivity() {
+    lateinit var bnv: BottomNavigationView
+    private lateinit var nhf: NavHostFragment
+    lateinit var gameViewModel: GameViewModel
+    lateinit var monstersViewModel: MonstersViewModel
+    val fightViewModel: FightViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val gpsController = GPSController(this)
+        val gameViewModelProvider = GameViewModelProvider(gpsController)
+        gameViewModel = ViewModelProvider(this, gameViewModelProvider)[GameViewModel::class.java]
+
+        val monstersRepository = MonstersRepository(MonstersDatabase(this))
+        val monstersViewModelProvider = MonstersViewModelProvider(monstersRepository)
+        monstersViewModel = ViewModelProvider(this, monstersViewModelProvider)[MonstersViewModel::class.java]
+
         setContentView(R.layout.activity_main)
-        gameSurfaceView = findViewById(R.id.gameSurfaceView)
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment!!.getMapAsync(this)
+
+        bnv = findViewById(R.id.bottomNavigationView)
+        nhf = supportFragmentManager.findFragmentById(R.id.contentNavHostFragment) as NavHostFragment
+        bnv.setupWithNavController(nhf.findNavController())
     }
 
-    override fun onMapReady(p0: GoogleMap) {
-        val success: Boolean = p0.setMapStyle(
-            MapStyleOptions(
-                resources
-                    .getString(R.string.style_json)
-            )
-        )
-
-        if (!success) {
-            Log.e("TAG", "Style parsing failed.")
-        }
-        p0.moveCamera(CameraUpdateFactory.newLatLng(LatLng(-34.0, 151.0)))
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-            && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return
-        }
-        p0.isMyLocationEnabled = true
-
-        gameSurfaceView.addGMap(p0)
-    }
 }

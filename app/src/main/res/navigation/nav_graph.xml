@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/gameFragment">
+
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.example.obierzyswiat.fragments.GameFragment"
+        android:label="GameFragment" >
+        <action
+            android:id="@+id/action_gameFragment_to_fightFragment"
+            app:destination="@id/fightFragment" />
+        <action
+            android:id="@+id/action_gameFragment_to_monstersFragment"
+            app:destination="@id/monstersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fightFragment"
+        android:name="com.example.obierzyswiat.fragments.FightFragment"
+        android:label="FightFragment" >
+        <argument
+            android:name="monsterSerialized"
+            app:argType="string" />
+        <argument
+            android:name="playerSerialized"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_fightFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/monstersFragment"
+        android:name="com.example.obierzyswiat.fragments.MonstersFragment"
+        android:label="MonstersFragment" >
+        <action
+            android:id="@+id/action_monstersFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+    </fragment>
+</navigation>

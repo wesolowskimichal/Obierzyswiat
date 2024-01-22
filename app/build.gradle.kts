@@ -1,6 +1,9 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("androidx.navigation.safeargs.kotlin")
+    id("kotlin-kapt")
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -43,6 +46,16 @@ dependencies {
 
     // Maps SDK for Android
     implementation("com.google.android.gms:play-services-maps:18.2.0")
+
+    // Navigation
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
+
+    implementation("androidx.room:room-common:2.6.0")
+    implementation("androidx.room:room-runtime:2.6.0")
+    implementation("androidx.room:room-ktx:2.6.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+    kapt("androidx.room:room-compiler:2.6.0")
 
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     testImplementation("junit:junit:4.13.2")

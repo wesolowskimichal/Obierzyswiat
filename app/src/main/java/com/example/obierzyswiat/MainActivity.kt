@@ -13,6 +13,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.obierzyswiat.controllers.GPSController
+import com.example.obierzyswiat.controllers.MonstersController
 import com.example.obierzyswiat.database.MonstersDatabase
 import com.example.obierzyswiat.repository.MonstersRepository
 import com.example.obierzyswiat.viewmodels.FightViewModel
@@ -34,7 +35,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val gpsController = GPSController(this)
-        val gameViewModelProvider = GameViewModelProvider(gpsController)
+        val monstersController = MonstersController(this)
+        val gameViewModelProvider = GameViewModelProvider(gpsController, monstersController)
         gameViewModel = ViewModelProvider(this, gameViewModelProvider)[GameViewModel::class.java]
 
         val monstersRepository = MonstersRepository(MonstersDatabase(this))

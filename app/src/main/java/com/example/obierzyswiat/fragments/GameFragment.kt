@@ -31,15 +31,12 @@ class GameFragment: Fragment(R.layout.game_fragment), OnMapReadyCallback, SubPro
     private val _engine = Engine(this)
     lateinit var viewModel: GameViewModel
     lateinit var _player: Player
-//    private val monsters: MutableList<Monster> = mutableListOf()
     private var  mapFragment: SupportMapFragment? = null
-    lateinit var monstersController: MonstersController
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel =(activity as MainActivity).gameViewModel
-        monstersController = MonstersController(requireContext())
         viewModel.start()
 
         mapFragment = childFragmentManager
@@ -81,7 +78,7 @@ class GameFragment: Fragment(R.layout.game_fragment), OnMapReadyCallback, SubPro
         p0.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
         p0.setOnMarkerClickListener(GoogleMap.OnMarkerClickListener {marker ->
             Log.d("ASDASD", "${marker.position}: ${marker.title}")
-            val monster = monstersController.monsters.filter {monster->
+            val monster = viewModel.monstersController.monsters.filter {monster->
                 monster.name == marker.title
             }
             if(monster.isEmpty()) {
@@ -99,35 +96,11 @@ class GameFragment: Fragment(R.layout.game_fragment), OnMapReadyCallback, SubPro
                 putString("monsterSerialized", serialized)
                 putString("playerSerialized", playerSer)
             }
-            monstersController.remove(monster[0])
+            viewModel.monstersController.remove(monster[0])
             findNavController().navigate(
                 R.id.action_gameFragment_to_fightFragment,
                 bundle
             )
-
-           /* when(it.title) {
-                "Zmij" -> {
-                    val monster = monstersController.monsters.filter {
-                        it.name == "Zmij"
-                    }
-                    val monsterSer = MonsterSer(
-                        name = "Zmij",
-                        maxHealth = monster[0].maxHealth,
-                        attackDamage = monster[0].attackDamage,
-                        attackSpeed = monster[0].attackSpeed
-                    )
-                    val serialized = Json.encodeToString(monsterSer)
-                    val playerSer = Json.encodeToString(PlayerSer(_player.healt, _player.maxHealth, 1))
-                    val bundle = Bundle().apply {
-                        putString("monsterSerialized", serialized)
-                        putString("playerSerialized", playerSer)
-                    }
-                    findNavController().navigate(
-                        R.id.action_gameFragment_to_fightFragment,
-                        bundle
-                    )
-                }
-            }*/
             return@OnMarkerClickListener false
         })
     }
@@ -141,8 +114,8 @@ class GameFragment: Fragment(R.layout.game_fragment), OnMapReadyCallback, SubPro
                 } else {
                     _player.update(AnimationManager.POSITION.FRONT, AnimationManager.STATE.STAY, deltaTime)
                 }
-                monstersController.update(_player.pos)
-                for(monster in monstersController.monsters) {
+                viewModel.monstersController.update(_player.pos)
+                for(monster in viewModel.monstersController.monsters) {
                     monster.update(deltaTime)
                     monster.draw(gMap)
                 }

@@ -38,6 +38,12 @@ class MonstersController(val context: Context) {
         }
     }
 
+    fun restart() {
+        for(monster in _monsters) {
+            monster.restart()
+        }
+    }
+
     private fun randomMonster(): Monster {
         val random = Random(System.currentTimeMillis())
         val dec = random.nextDouble()

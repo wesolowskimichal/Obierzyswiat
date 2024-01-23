@@ -25,6 +25,9 @@ class Zmij(
 //        marker?.setIcon(animationManager.update(position, state, deltaTime))
 
     }
+    override fun restart() {
+        _lastPos = LatLng(_lastPos.longitude, _lastPos.latitude)
+    }
 
     override fun draw(gMap: GoogleMap) {
         if(_lastPos != pos) {

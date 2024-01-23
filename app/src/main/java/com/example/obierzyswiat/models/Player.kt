@@ -28,6 +28,10 @@ class Player( val name: String,  var pos: LatLng,
         marker?.setIcon(animationManager.update(position, state, deltaTime))
     }
 
+    fun restart() {
+        _lastPos = LatLng(_lastPos.longitude, _lastPos.latitude)
+    }
+
     fun draw(gMap: GoogleMap) {
         if(_lastPos != pos) {
             marker?.remove()

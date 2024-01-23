@@ -20,6 +20,7 @@ interface Monster {
     var position: AnimationManager.POSITION
     var _lastPos: LatLng
 
+    fun restart()
     fun update(deltaTime: Float)
     fun draw(gMap: GoogleMap)
 }

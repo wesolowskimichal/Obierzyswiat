@@ -30,23 +30,23 @@ import kotlinx.serialization.json.Json
 class GameFragment: Fragment(R.layout.game_fragment), OnMapReadyCallback, SubProcess {
     private val _engine = Engine(this)
     lateinit var viewModel: GameViewModel
-    lateinit var _player: Player
     private var  mapFragment: SupportMapFragment? = null
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel =(activity as MainActivity).gameViewModel
+        viewModel = (activity as MainActivity).gameViewModel
+        viewModel.player.restart()
+        viewModel.monstersController.restart()
         viewModel.start()
 
         mapFragment = childFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment!!.getMapAsync(this)
 
-        _player = Player("MAIN", LatLng(20.0, 20.0), 600, 600, requireContext())
 
         viewModel.getPosition().observe(viewLifecycleOwner, Observer {pos ->
-            _player.pos = pos
+            viewModel.player.pos = pos
         })
         _engine.startLoop()
     }
@@ -91,7 +91,7 @@ class GameFragment: Fragment(R.layout.game_fragment), OnMapReadyCallback, SubPro
                 attackSpeed = monster[0].attackSpeed
             )
             val serialized = Json.encodeToString(monsterSer)
-            val playerSer = Json.encodeToString(PlayerSer(_player.healt, _player.maxHealth, 1))
+            val playerSer = Json.encodeToString(PlayerSer(viewModel.player.healt, viewModel.player.maxHealth, 1))
             val bundle = Bundle().apply {
                 putString("monsterSerialized", serialized)
                 putString("playerSerialized", playerSer)
@@ -108,18 +108,18 @@ class GameFragment: Fragment(R.layout.game_fragment), OnMapReadyCallback, SubPro
     override fun update(deltaTime: Float) {
         view?.post {
             mapFragment?.getMapAsync { gMap ->
-                gMap.moveCamera(CameraUpdateFactory.newLatLng(_player.pos))
+                gMap.moveCamera(CameraUpdateFactory.newLatLng(viewModel.player.pos))
                 if(viewModel.isMoving()) {
-                    _player.update(AnimationManager.POSITION.FRONT, AnimationManager.STATE.MOVE, deltaTime)
+                    viewModel.player.update(AnimationManager.POSITION.FRONT, AnimationManager.STATE.MOVE, deltaTime)
                 } else {
-                    _player.update(AnimationManager.POSITION.FRONT, AnimationManager.STATE.STAY, deltaTime)
+                    viewModel.player.update(AnimationManager.POSITION.FRONT, AnimationManager.STATE.STAY, deltaTime)
                 }
-                viewModel.monstersController.update(_player.pos)
+                viewModel.monstersController.update(viewModel.player.pos)
                 for(monster in viewModel.monstersController.monsters) {
                     monster.update(deltaTime)
                     monster.draw(gMap)
                 }
-                _player.draw(gMap)
+                viewModel.player.draw(gMap)
             }
         }
     }

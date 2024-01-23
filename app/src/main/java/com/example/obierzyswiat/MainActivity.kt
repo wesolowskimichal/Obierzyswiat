@@ -15,12 +15,14 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.obierzyswiat.controllers.GPSController
 import com.example.obierzyswiat.controllers.MonstersController
 import com.example.obierzyswiat.database.MonstersDatabase
+import com.example.obierzyswiat.models.Player
 import com.example.obierzyswiat.repository.MonstersRepository
 import com.example.obierzyswiat.viewmodels.FightViewModel
 import com.example.obierzyswiat.viewmodels.GameViewModel
 import com.example.obierzyswiat.viewmodels.GameViewModelProvider
 import com.example.obierzyswiat.viewmodels.MonstersViewModel
 import com.example.obierzyswiat.viewmodels.MonstersViewModelProvider
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -36,7 +38,8 @@ class MainActivity : AppCompatActivity() {
 
         val gpsController = GPSController(this)
         val monstersController = MonstersController(this)
-        val gameViewModelProvider = GameViewModelProvider(gpsController, monstersController)
+        val player = Player("MAIN", LatLng(20.0, 20.0), 600, 600, this);
+        val gameViewModelProvider = GameViewModelProvider(gpsController, monstersController, player)
         gameViewModel = ViewModelProvider(this, gameViewModelProvider)[GameViewModel::class.java]
 
         val monstersRepository = MonstersRepository(MonstersDatabase(this))

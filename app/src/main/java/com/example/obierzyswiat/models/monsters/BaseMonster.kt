@@ -17,6 +17,10 @@ abstract class BaseMonster(
     override fun update(deltaTime: Float) {
     }
 
+    override fun restart() {
+        _lastPos = LatLng(_lastPos.longitude, _lastPos.latitude)
+    }
+
     override fun draw(gMap: GoogleMap) {
         if(_lastPos != pos) {
             marker?.remove()

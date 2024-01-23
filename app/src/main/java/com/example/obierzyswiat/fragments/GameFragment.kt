@@ -32,7 +32,6 @@ class GameFragment: Fragment(R.layout.game_fragment), OnMapReadyCallback, SubPro
     lateinit var viewModel: GameViewModel
     private var  mapFragment: SupportMapFragment? = null
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MainActivity).gameViewModel
@@ -71,7 +70,7 @@ class GameFragment: Fragment(R.layout.game_fragment), OnMapReadyCallback, SubPro
         val mountainView = LatLng(20.0, 20.0)
         val cameraPosition = CameraPosition.Builder()
             .target(mountainView) // Sets the center of the map to Mountain View
-            .zoom(35f)            // Sets the zoom
+            .zoom(50f)            // Sets the zoom
             .bearing(90f)         // Sets the orientation of the camera to east
             .tilt(60f)            // Sets the tilt of the camera to 30 degrees
             .build()              // Creates a CameraPosition from the builder

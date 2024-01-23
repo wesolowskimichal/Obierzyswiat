@@ -9,6 +9,10 @@ class FightViewModel: ViewModel() {
     val clicks: LiveData<Int>
         get() = _clicks
 
+    fun resetClicks() {
+        _clicks.postValue(0)
+    }
+
     fun onClick() {
         val v = (_clicks.value ?: 0) + 1
         _clicks.postValue(v)

@@ -43,6 +43,7 @@ class FightFragment: Fragment(R.layout.fight_fragment), SubProcess {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MainActivity).fightViewModel
+        viewModel.resetClicks()
         monstersViewModel = (activity as MainActivity).monstersViewModel
         (activity as MainActivity).bnv.visibility = View.GONE
         view.findViewById<ImageView>(R.id.imgMonster)
